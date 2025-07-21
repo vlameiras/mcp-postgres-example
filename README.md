@@ -2,28 +2,80 @@
 
 This project provides a local PostgreSQL database with a Model Context Protocol (MCP) server for AI integration.
 
-## Quick Start
+## 🚀 Quick Start (3 Easy Steps!)
 
-1. **Clone and navigate to the project:**
-   ```bash
-   git clone <repository-url>
-   cd postgresql-test
-   ```
+### 1. Start the Services
+```bash
+# Clone the repository
+git clone https://github.com/vlameiras/mcp-postgres-example.git
+cd mcp-postgres-example
 
-2. **Copy environment file:**
-   ```bash
-   cp .env.example .env
-   ```
+# Copy environment configuration
+cp .env.example .env
 
-3. **Start the services:**
-   ```bash
-   docker-compose up -d
-   ```
+# Start PostgreSQL + MCP Server
+docker-compose up -d
+```
 
-4. **Verify services are running:**
-   ```bash
-   docker-compose ps
-   ```
+### 2. Test Everything Works
+```bash
+# Run comprehensive tests
+./test.sh
+```
+You should see: `🎉 All tests passed! (5/5)`
+
+### 3. Try the MCP API Examples
+```bash
+# Run interactive examples
+./examples/mcp-examples.sh
+```
+
+**That's it! 🎉 Your setup is ready for AI integration.**
+
+### Quick Access
+- **PostgreSQL Database**: `localhost:5432` (user: `myuser`, password: `mypassword`, database: `mydatabase`)
+- **MCP Server API**: `http://localhost:8080/mcp`
+- **Health Check**: `http://localhost:8080/health`
+
+## 📦 What You Get
+
+✅ **PostgreSQL Database** - Containerized PostgreSQL 16 with sample data  
+✅ **MCP Server** - Model Context Protocol server for AI integration  
+✅ **Sample Data** - Users, posts, and relationships ready for testing  
+✅ **Health Checks** - Automatic monitoring and restart capabilities  
+✅ **Test Suite** - Comprehensive validation of all functionality  
+✅ **API Examples** - Interactive demonstrations of MCP capabilities  
+✅ **Backup Tools** - Database backup and restore utilities  
+
+## ⚡ Common Issues & Solutions
+
+**Services won't start?**
+```bash
+# Check if ports 5432 or 8080 are in use
+lsof -i :5432
+lsof -i :8080
+
+# Or use different ports by editing .env file
+```
+
+**Tests failing?**
+```bash
+# Wait for services to fully start (takes ~60 seconds)
+docker-compose ps
+
+# Check service logs
+docker-compose logs postgres
+docker-compose logs mcp-server
+```
+
+**Need to reset everything?**
+```bash
+# Stop and remove everything (including data)
+docker-compose down -v
+
+# Start fresh
+docker-compose up -d
+```
 
 ## Services
 
@@ -45,20 +97,22 @@ Edit the `.env` file to customize:
 - Port mappings
 - Server configurations
 
-## Usage Examples
+## 💡 Usage Examples
 
-### Direct Database Access
+### 🔄 Easy Way: Run the Examples Script
 ```bash
-# Connect using psql
-psql -h localhost -p 5432 -U myuser -d mydatabase
-
-# Or using Docker
-docker-compose exec postgres psql -U myuser -d mydatabase
+# See all MCP server capabilities in action
+./examples/mcp-examples.sh
 ```
 
-### MCP Server API
+### 🔧 Manual API Testing
 
-#### List Database Resources
+#### 1. Check Server Health
+```bash
+curl http://localhost:8080/health
+```
+
+#### 2. List Database Resources
 ```bash
 curl -X POST http://localhost:8080/mcp \
   -H "Content-Type: application/json" \
@@ -68,7 +122,7 @@ curl -X POST http://localhost:8080/mcp \
   }'
 ```
 
-#### Execute SQL Query
+#### 3. Execute SQL Query
 ```bash
 curl -X POST http://localhost:8080/mcp \
   -H "Content-Type: application/json" \
@@ -81,20 +135,16 @@ curl -X POST http://localhost:8080/mcp \
   }'
 ```
 
-#### Get Database Schema Information
+### 🗄️ Direct Database Access (Optional)
 ```bash
-curl -X POST http://localhost:8080/mcp \
-  -H "Content-Type: application/json" \
-  -d '{
-    "type": "function",
-    "name": "query", 
-    "arguments": {
-      "query": "SELECT table_name, column_name, data_type FROM information_schema.columns WHERE table_schema = '\''sample'\'' ORDER BY table_name, ordinal_position;"
-    }
-  }'
+# Connect using psql
+psql -h localhost -p 5432 -U myuser -d mydatabase
+
+# Or using Docker
+docker-compose exec postgres psql -U myuser -d mydatabase
 ```
 
-## Sample Data
+## 📊 Sample Data
 
 The setup includes sample data in the `sample` schema:
 - `sample.users` - User accounts
