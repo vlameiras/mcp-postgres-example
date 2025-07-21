@@ -1,0 +1,55 @@
+# Logs and temporary files
+*.log
+*.tmp
+
+# Environment files with secrets
+.env
+
+# Docker-related files
+docker-compose.override.yml
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Database dumps and backups
+*.sql.gz
+*.dump
+backups/
+
+# Node modules (if using Node.js tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python (if using Python tools)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Testing artifacts
+coverage/
+.nyc_output/
+.coverage
+
+# Build artifacts
+dist/
+build/
